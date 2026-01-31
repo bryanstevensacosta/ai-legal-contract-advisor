@@ -77,7 +77,7 @@ hackathon-ibm-dev-day/
 
 ---
 
-## 💡 Project: Boardroom AI
+## 💡 Project: Lex Conductor
 
 Multi-agent decision orchestration system powered by IBM watsonx Orchestrate.
 
