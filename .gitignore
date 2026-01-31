@@ -248,6 +248,9 @@ $RECYCLE.BIN/
 # ============================================================================
 # Project Specific
 # ============================================================================
+# Kiro IDE files (internal tooling, not for git)
+.kiro/
+
 # Temporary files
 tmp/
 temp/
@@ -260,6 +263,9 @@ contracts/uploaded/
 *.pdf
 *.docx
 *.doc
+
+# IDE
+.kiro/
 
 # Generated reports
 reports/generated/
