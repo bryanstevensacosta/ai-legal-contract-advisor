@@ -1,0 +1,52 @@
+# Pre-commit hooks for LexConductor
+# IBM Dev Day AI Demystified Hackathon 2026
+# Team: AI Kings 👑
+
+repos:
+  # 1. FORMATO - Python code formatting with Black
+  - repo: https://github.com/psf/black
+    rev: 24.1.1
+    hooks:
+      - id: black
+        language_version: python3.11
+        args: ['--line-length=100']
+
+  # 2. LINT - Python linting with Ruff
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.15
+    hooks:
+      - id: ruff
+        args: ['--fix', '--exit-non-zero-on-fix']
+
+  # 3. TYPECHECK - Python type checking with mypy
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.8.0
+    hooks:
+      - id: mypy
+        additional_dependencies: [
+          'pydantic>=2.0',
+          'fastapi',
+          'types-requests'
+        ]
+        args: ['--ignore-missing-imports']
+
+# Configuration
+default_language_version:
+  python: python3.11
+
+# Files to exclude from all hooks
+exclude: |
+  (?x)^(
+    \.git/|
+    \.kiro/|
+    __pycache__/|
+    \.venv/|
+    venv/|
+    \.pytest_cache/|
+    \.mypy_cache/|
+    \.ruff_cache/|
+    node_modules/|
+    dist/|
+    build/|
+    \.egg-info/
+  )
