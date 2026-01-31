@@ -162,6 +162,166 @@ python scripts/test_connections.py
 
 ---
 
+## Data Population Scripts
+
+### 5. setup_cloudant_databases.py (NEW)
+
+**Purpose**: Create Cloudant databases and indexes for LexConductor.
+
+**Usage**:
+```bash
+python scripts/setup_cloudant_databases.py
+```
+
+**What it does**:
+- ✅ Creates `golden_clauses` database with contract_type index
+- ✅ Creates `historical_decisions` database with decision_id index
+- ✅ Creates `regulatory_mappings` database with jurisdiction index
+- ✅ Creates additional indexes for efficient querying
+
+**Prerequisites**:
+- Cloudant instance created
+- `CLOUDANT_URL` and `CLOUDANT_API_KEY` in `.env`
+
+**Output**:
+- Database creation status
+- Index creation status
+- Verification summary
+
+---
+
+### 6. populate_golden_clauses.py (NEW)
+
+**Purpose**: Populate Golden Clauses collection with sample data.
+
+**Usage**:
+```bash
+python scripts/populate_golden_clauses.py
+```
+
+**What it does**:
+- ✅ Adds 15 sample Golden Clauses
+- ✅ Covers NDA, MSA, and Service Agreement types
+- ✅ Includes liability caps, indemnification, confidentiality, termination clauses
+- ✅ Each clause has proper metadata (type, jurisdiction, risk_level, tags)
+
+**Prerequisites**:
+- Cloudant databases created (run `setup_cloudant_databases.py` first)
+
+**Output**:
+- Clause addition status
+- Verification by contract type
+- Total clause count
+
+---
+
+### 7. populate_historical_decisions.py (NEW)
+
+**Purpose**: Seed historical precedents for common scenarios.
+
+**Usage**:
+```bash
+python scripts/populate_historical_decisions.py
+```
+
+**What it does**:
+- ✅ Adds 10 sample historical decisions
+- ✅ Covers NDA, MSA, and Service Agreement types
+- ✅ Includes rationale, confidence scores, and regulatory basis
+- ✅ Each decision has original and modified clause text
+
+**Prerequisites**:
+- Cloudant databases created
+
+**Output**:
+- Decision addition status
+- Verification by contract type and jurisdiction
+- High confidence decision count
+
+---
+
+### 8. setup_cos_buckets.py (NEW)
+
+**Purpose**: Setup Cloud Object Storage bucket and regulatory mappings.
+
+**Usage**:
+```bash
+python scripts/setup_cos_buckets.py
+```
+
+**What it does**:
+- ✅ Creates COS bucket: `watsonx-hackathon-regulations`
+- ✅ Creates folder structure: EU/, UK/, US/, templates/
+- ✅ Populates 13 regulatory mappings in Cloudant
+- ✅ Provides instructions for uploading regulatory PDFs
+
+**Prerequisites**:
+- COS instance created
+- `COS_API_KEY`, `COS_INSTANCE_ID`, `COS_ENDPOINT` in `.env`
+- Cloudant databases created
+
+**Output**:
+- Bucket creation status
+- Folder creation status
+- Regulatory mapping addition status
+- PDF upload instructions
+
+---
+
+### 9. verify_data_layer.py (NEW)
+
+**Purpose**: Verify complete data layer setup.
+
+**Usage**:
+```bash
+python scripts/verify_data_layer.py
+```
+
+**What it does**:
+- ✅ Verifies all Cloudant databases exist with expected document counts
+- ✅ Verifies COS bucket exists with folder structure
+- ✅ Checks for uploaded PDFs
+- ✅ Provides comprehensive verification summary
+
+**Prerequisites**:
+- All data population scripts run
+- PDFs uploaded to COS (optional, will warn if missing)
+
+**Output**:
+- Database verification status
+- Document counts by type
+- COS bucket verification
+- Overall pass/fail summary
+
+---
+
+## Data Population Workflow
+
+Complete data layer setup in order:
+
+```bash
+# 1. Create databases and indexes
+python scripts/setup_cloudant_databases.py
+
+# 2. Populate Golden Clauses (15 clauses)
+python scripts/populate_golden_clauses.py
+
+# 3. Populate Historical Decisions (10 precedents)
+python scripts/populate_historical_decisions.py
+
+# 4. Setup COS bucket and regulatory mappings (13 regulations)
+python scripts/setup_cos_buckets.py
+
+# 5. Upload regulatory PDFs (manual step - see instructions from step 4)
+
+# 6. Verify everything
+python scripts/verify_data_layer.py
+```
+
+**See**: `scripts/DATA_POPULATION_README.md` for detailed guide.
+
+---
+
 ## Typical Workflow
 
 ### Initial Setup

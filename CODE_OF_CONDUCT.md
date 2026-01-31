@@ -162,7 +162,7 @@ By participating in Team AI Kings for the IBM Dev Day AI Demystified Hackathon, 
 
 ## Contact
 
-**Team Lead**: [Name]  
+**Team Lead**: Bryan Stevens Acosta  
 **Hackathon Period**: January 30 - February 1, 2026  
 **IBM Support**: BeMyApp platform, IBM Dev Day Slack
 
