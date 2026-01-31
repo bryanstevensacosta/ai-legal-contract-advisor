@@ -1,0 +1,414 @@
+# LexConductor - Legal Reasoning & Regulatory Signal Fusion
+# IBM Dev Day AI Demystified Hackathon 2026
+
+# ============================================================================
+# CRITICAL: Environment Variables & Secrets (NEVER COMMIT)
+# ============================================================================
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+.env.test
+
+# API Keys and Credentials
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.json
+secrets.yaml
+config/secrets.yaml
+api_keys.txt
+
+# IBM Cloud Credentials
+ibmcloud_api_key.json
+watsonx_credentials.json
+cloudant_credentials.json
+cos_credentials.json
+
+# ============================================================================
+# Python
+# ============================================================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# poetry
+poetry.lock
+
+# pdm
+.pdm.toml
+
+# PEP 582
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# ============================================================================
+# IDEs and Editors
+# ============================================================================
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+.vim/
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# Eclipse
+.project
+.pydevproject
+.settings/
+
+# NetBeans
+nbproject/
+
+# ============================================================================
+# Operating System Files
+# ============================================================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.directory
+.Trash-*
+.nfs*
+
+# ============================================================================
+# Project Specific
+# ============================================================================
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Uploaded contracts (demo files only, never commit real contracts)
+uploads/
+contracts/uploaded/
+*.pdf
+*.docx
+*.doc
+
+# Generated reports
+reports/generated/
+output/
+legal_logic_traces/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Cache directories
+.cache/
+cache/
+.parcel-cache/
+
+# Backup files
+*.bak
+*.backup
+*.old
+*_backup
+*_old
+
+# ============================================================================
+# Docker
+# ============================================================================
+# Docker files (keep Dockerfile, ignore builds)
+docker-compose.override.yml
+.dockerignore
+
+# ============================================================================
+# IBM Cloud & watsonx
+# ============================================================================
+# watsonx Orchestrate ADK
+.orchestrate/
+orchestrate_cache/
+
+# IBM Cloud CLI
+.bluemix/
+.cf/
+
+# Code Engine builds
+.ce/
+
+# ============================================================================
+# Data Files (Keep structure, ignore content)
+# ============================================================================
+# Regulatory PDFs (too large for git, download separately)
+data/regulations/*.pdf
+data/regulations/EU/*.pdf
+data/regulations/UK/*.pdf
+data/regulations/US/*.pdf
+
+# Golden Clauses (keep examples, ignore production data)
+data/golden_clauses/production/
+
+# Historical decisions (keep examples, ignore production data)
+data/precedents/production/
+
+# ============================================================================
+# Testing
+# ============================================================================
+# Test outputs
+test_output/
+test_results/
+.pytest_cache/
+.hypothesis/
+
+# Property-based test artifacts
+hypothesis_cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+coverage.xml
+
+# ============================================================================
+# Build Artifacts
+# ============================================================================
+# Compiled files
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Package files
+*.egg
+*.egg-info
+dist/
+build/
+
+# ============================================================================
+# Miscellaneous
+# ============================================================================
+# Node modules (if using any JS tooling)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Terraform (if using IaC)
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# Ansible (if using configuration management)
+*.retry
+
+# ============================================================================
+# Keep These Files (Exceptions)
+# ============================================================================
+# Keep example files
+!.env.example
+!data/regulations/README.md
+!data/golden_clauses/examples/
+!data/precedents/examples/
+
+# Keep documentation
+!docs/**/*.md
+!*.md
+
+# Keep configuration templates
+!config/*.example
+!config/*.template
+
+# Keep sample contracts (synthetic data only)
+!data/sample_contracts/*.txt
+!data/sample_contracts/*.md
+
+# ============================================================================
+# Security Scanning
+# ============================================================================
+# Ignore security scan results
+.snyk
+snyk_report.json
+trivy_report.json
+
+# ============================================================================
+# END OF .gitignore
+# ============================================================================
+# Last Updated: January 30, 2026
+# Project: LexConductor - IBM Dev Day AI Demystified Hackathon
+# Team: AI Kings 👑
