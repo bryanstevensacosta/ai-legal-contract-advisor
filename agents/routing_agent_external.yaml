@@ -5,8 +5,7 @@ type: external
 
 connection:
   type: agent_connect
-  endpoint: ${ROUTING_AGENT_ENDPOINT}
-  api_key: ${ROUTING_AGENT_API_KEY}
+  endpoint: https://lexconductor-agents.25rf0qd39xzz.jp-osa.codeengine.appdomain.cloud/routing/classify
   timeout: 30
   retry:
     max_attempts: 3

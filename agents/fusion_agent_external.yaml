@@ -5,8 +5,7 @@ type: external
 
 connection:
   type: agent_connect
-  endpoint: ${FUSION_AGENT_ENDPOINT}
-  api_key: ${FUSION_AGENT_API_KEY}
+  endpoint: https://lexconductor-agents.25rf0qd39xzz.jp-osa.codeengine.appdomain.cloud/fusion/analyze
   timeout: 30
   retry:
     max_attempts: 3
