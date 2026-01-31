@@ -517,3 +517,315 @@ python scripts/test_connections.py -v  # (if implemented)
 ---
 
 *Team: AI Kings 👑*
+
+
+---
+
+## Deployment Scripts
+
+### 10. build_and_push_docker.sh (NEW)
+
+**Purpose**: Build Docker image and push to IBM Container Registry.
+
+**Usage**:
+```bash
+export ICR_NAMESPACE="lexconductor"
+export IBM_CLOUD_API_KEY="your-api-key"
+./scripts/build_and_push_docker.sh
+```
+
+**What it does**:
+- ✅ Builds Docker image from Dockerfile
+- ✅ Logs in to IBM Container Registry
+- ✅ Pushes image to ICR
+- ✅ Verifies image in registry
+
+**Prerequisites**:
+- Docker installed and running
+- IBM Cloud CLI installed
+- `ICR_NAMESPACE` environment variable set
+- `IBM_CLOUD_API_KEY` environment variable set
+
+**Configuration**:
+- Registry: `us.icr.io` (default)
+- Image name: `lexconductor-agents`
+- Tag: `latest` (default, can override with `IMAGE_TAG`)
+
+**Output**:
+- Build progress
+- Push progress
+- Image verification
+- Full image name for deployment
+
+---
+
+### 11. deploy_to_code_engine.sh (NEW)
+
+**Purpose**: Deploy the application to IBM Code Engine.
+
+**Usage**:
+```bash
+# Set required environment variables
+export CODE_ENGINE_PROJECT="lexconductor-project"
+export ICR_NAMESPACE="lexconductor"
+export CLOUDANT_URL="your-cloudant-url"
+export CLOUDANT_API_KEY="your-cloudant-api-key"
+export COS_ENDPOINT="your-cos-endpoint"
+export COS_API_KEY="your-cos-api-key"
+export COS_INSTANCE_ID="your-cos-instance-id"
+export WATSONX_API_KEY="your-watsonx-api-key"
+export WATSONX_PROJECT_ID="your-watsonx-project-id"
+export IBM_CLOUD_API_KEY="your-ibm-cloud-api-key"
+
+./scripts/deploy_to_code_engine.sh
+```
+
+**What it does**:
+- ✅ Logs in to IBM Cloud
+- ✅ Creates or selects Code Engine project
+- ✅ Creates registry secret for ICR
+- ✅ Creates or updates application
+- ✅ Configures environment variables
+- ✅ Sets auto-scaling and resources
+- ✅ Returns application URL
+
+**Configuration**:
+- Region: `jp-osa` (Osaka, default)
+- Min scale: 0 instances (scales to zero when idle)
+- Max scale: 5 instances
+- CPU: 1 vCPU
+- Memory: 512Mi
+- Concurrency: 10 requests/instance
+- Port: 8080
+
+**Prerequisites**:
+- Docker image pushed to ICR
+- All required environment variables set
+- IBM Cloud CLI with Code Engine plugin
+
+**Output**:
+- Deployment progress
+- Application URL
+- Application status
+- Next steps instructions
+
+---
+
+### 12. test_endpoints.sh (NEW)
+
+**Purpose**: Test all external agent endpoints.
+
+**Usage**:
+```bash
+# Option 1: Auto-detect URL from Code Engine
+./scripts/test_endpoints.sh
+
+# Option 2: Provide URL manually
+export BASE_URL="https://your-app-url.com"
+./scripts/test_endpoints.sh
+```
+
+**What it tests**:
+1. ✅ Health check endpoint (GET /health)
+2. ✅ Root endpoint (GET /)
+3. ✅ Fusion Agent (POST /fusion/analyze)
+4. ✅ Routing Agent (POST /routing/classify)
+5. ✅ Memory Agent (POST /memory/query)
+6. ✅ Traceability Agent (POST /traceability/generate)
+
+**Success criteria**:
+- All endpoints return 200 status
+- Response times < 5 seconds
+- Valid JSON responses
+
+**Prerequisites**:
+- Application deployed to Code Engine
+- Application is running and accessible
+- `jq` command-line JSON processor (optional, for pretty output)
+
+**Output**:
+- Test results for each endpoint
+- Response times
+- Response samples
+- Pass/fail summary
+
+**Exit Codes**:
+- `0` - All tests passed
+- `1` - Some tests failed
+
+---
+
+## Complete Deployment Workflow
+
+### Step-by-Step Deployment
+
+1. **Ensure data layer is setup**:
+   ```bash
+   python scripts/verify_data_layer.py
+   ```
+
+2. **Build and push Docker image**:
+   ```bash
+   export ICR_NAMESPACE="lexconductor"
+   export IBM_CLOUD_API_KEY="your-api-key"
+   ./scripts/build_and_push_docker.sh
+   ```
+
+3. **Deploy to Code Engine**:
+   ```bash
+   # Ensure all environment variables are set
+   source .env
+   ./scripts/deploy_to_code_engine.sh
+   ```
+
+4. **Test endpoints**:
+   ```bash
+   ./scripts/test_endpoints.sh
+   ```
+
+5. **Monitor application**:
+   ```bash
+   ibmcloud ce app logs --name lexconductor-agents --follow
+   ```
+
+### Quick Deployment (All Steps)
+
+```bash
+# 1. Verify data layer
+python scripts/verify_data_layer.py
+
+# 2. Build and push
+export ICR_NAMESPACE="lexconductor"
+./scripts/build_and_push_docker.sh
+
+# 3. Deploy
+./scripts/deploy_to_code_engine.sh
+
+# 4. Test
+./scripts/test_endpoints.sh
+```
+
+---
+
+## Deployment Troubleshooting
+
+### Docker Build Issues
+
+**Error**: "Docker build failed"
+- Check Dockerfile syntax
+- Verify `requirements.txt` exists
+- Ensure Docker daemon is running
+- Check for sufficient disk space
+
+**Error**: "Docker push failed"
+- Verify `IBM_CLOUD_API_KEY` is correct
+- Check `ICR_NAMESPACE` exists: `ibmcloud cr namespace-list`
+- Ensure logged in to ICR
+- Check network connectivity
+
+### Code Engine Deployment Issues
+
+**Error**: "Code Engine deployment failed"
+- Check all environment variables are set
+- Verify image exists in ICR: `ibmcloud cr image-list`
+- Check Code Engine project exists: `ibmcloud ce project list`
+- Review logs: `ibmcloud ce app logs --name lexconductor-agents`
+
+**Error**: "Application not starting"
+- Check application logs for errors
+- Verify environment variables are correct
+- Check image can run locally: `docker run -p 8080:8080 <image>`
+- Verify port 8080 is exposed
+
+**Error**: "Health check failing"
+- Test locally first: `curl http://localhost:8080/health`
+- Check application logs
+- Verify `/health` endpoint exists
+- Check startup time (may need to increase timeout)
+
+### Endpoint Test Issues
+
+**Error**: "Endpoint tests failing"
+- Verify application is running: `ibmcloud ce app get --name lexconductor-agents`
+- Check application URL is correct
+- Test health endpoint manually: `curl $APP_URL/health`
+- Check application logs for errors
+- Verify environment variables are set correctly
+
+**Error**: "Slow response times (>5s)"
+- Increase CPU/memory: `ibmcloud ce app update --name lexconductor-agents --cpu 2 --memory 1G`
+- Increase minimum scale: `ibmcloud ce app update --name lexconductor-agents --min-scale 1`
+- Check watsonx.ai response times
+- Review application logs for bottlenecks
+
+---
+
+## Monitoring and Maintenance
+
+### View Application Logs
+
+```bash
+# View recent logs
+ibmcloud ce app logs --name lexconductor-agents
+
+# Follow logs in real-time
+ibmcloud ce app logs --name lexconductor-agents --follow
+
+# View last 100 lines
+ibmcloud ce app logs --name lexconductor-agents --tail 100
+```
+
+### Check Application Status
+
+```bash
+# Get application details
+ibmcloud ce app get --name lexconductor-agents
+
+# List all applications
+ibmcloud ce app list
+
+# View application events
+ibmcloud ce app events --name lexconductor-agents
+```
+
+### Update Application
+
+```bash
+# Update with new image
+./scripts/build_and_push_docker.sh
+ibmcloud ce app update --name lexconductor-agents \
+  --image us.icr.io/${ICR_NAMESPACE}/lexconductor-agents:latest
+
+# Update environment variables
+ibmcloud ce app update --name lexconductor-agents \
+  --env CLOUDANT_URL="${NEW_CLOUDANT_URL}"
+
+# Update resources
+ibmcloud ce app update --name lexconductor-agents \
+  --cpu 2 --memory 1G
+```
+
+### Cost Monitoring
+
+```bash
+# Check IBM Cloud usage
+ibmcloud billing account-usage
+
+# Monitor Code Engine usage
+ibmcloud ce project get --name lexconductor-project
+```
+
+---
+
+## Additional Resources
+
+- **Deployment Guide**: See `DEPLOYMENT.md` for detailed deployment instructions
+- **IBM Cloud Setup**: See `docs/IBM_CLOUD_SETUP.md` for service setup
+- **Data Population**: See `scripts/DATA_POPULATION_README.md` for data setup
+- **Code Engine Docs**: https://cloud.ibm.com/docs/codeengine
+- **Container Registry Docs**: https://cloud.ibm.com/docs/Registry
+
+---
+
+**Deployment Scripts Added**: January 30, 2026  
+**Ready for Code Engine Deployment**: ✅
