@@ -1,17 +1,13 @@
+spec_version: v1
+kind: native
 name: conductor-agent
-version: 1.0.0
+display_name: LexConductor Orchestrator
 description: Primary orchestrator for LexConductor legal contract review workflow
+llm: watsonx/ibm/granite-3-8b-instruct
+style: planner
+context_access_enabled: true
 
-model:
-  provider: watsonx.ai
-  model_id: ibm/granite-3-8b-instruct
-  parameters:
-    max_tokens: 2000
-    temperature: 0.3
-    top_p: 0.9
-    top_k: 50
-
-system_prompt: |
+instructions: |
   You are the Conductor Agent for LexConductor, an AI-powered legal intelligence system.
   
   Your role as the orchestrator:
@@ -37,106 +33,10 @@ system_prompt: |
   
   Be concise, accurate, and professional. Always explain your reasoning.
 
-collaborators:
-  - fusion-agent
-  - routing-agent
-  - memory-agent
-  - traceability-agent
+guidelines: []
 
-tools:
-  - name: classify_contract
-    description: Classify the type and jurisdiction of a legal contract
-    parameters:
-      type: object
-      properties:
-        contract_text:
-          type: string
-          description: The full text of the contract to classify
-      required:
-        - contract_text
-  
-  - name: delegate_to_fusion
-    description: Delegate signal correlation analysis to Fusion Agent
-    parameters:
-      type: object
-      properties:
-        contract_text:
-          type: string
-        contract_type:
-          type: string
-        jurisdiction:
-          type: string
-      required:
-        - contract_text
-        - contract_type
-  
-  - name: delegate_to_memory
-    description: Delegate historical precedent search to Memory Agent
-    parameters:
-      type: object
-      properties:
-        contract_type:
-          type: string
-        jurisdiction:
-          type: string
-      required:
-        - contract_type
-  
-  - name: delegate_to_routing
-    description: Delegate risk assessment to Routing Agent
-    parameters:
-      type: object
-      properties:
-        fusion_output:
-          type: object
-        contract_type:
-          type: string
-      required:
-        - fusion_output
-        - contract_type
-  
-  - name: delegate_to_traceability
-    description: Delegate audit trail generation to Traceability Agent
-    parameters:
-      type: object
-      properties:
-        all_agent_outputs:
-          type: object
-        contract_id:
-          type: string
-      required:
-        - all_agent_outputs
-        - contract_id
+collaborators: []
 
-conversation:
-  greeting: |
-    Welcome to LexConductor! 👑
-    
-    I'm your AI legal assistant powered by IBM watsonx Orchestrate.
-    
-    I can help you review contracts by:
-    • Analyzing clauses against company policies
-    • Checking regulatory compliance (EU, UK, US)
-    • Finding historical precedents
-    • Providing explainable recommendations
-    
-    Please upload your contract or paste the text to begin.
-  
-  error_message: |
-    I encountered an issue processing your request. Please try again or contact support if the problem persists.
-  
-  clarification_prompt: |
-    To provide the best analysis, I need a bit more information:
-    - What type of contract is this? (NDA, MSA, Service Agreement, etc.)
-    - What jurisdiction applies? (US, UK, EU, or specific country)
+tools: []
 
-metadata:
-  author: Team AI Kings
-  created: 2026-01-30
-  hackathon: IBM Dev Day AI Demystified 2026
-  tags:
-    - legal
-    - contract-review
-    - multi-agent
-    - signal-fusion
-    - orchestrator
+knowledge_base: []
