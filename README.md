@@ -34,7 +34,6 @@ Multi-agent decision orchestration system powered by IBM watsonx Orchestrate.
 
 ---
 
-
 ## 🎯 Hackathon Overview
 
 **Event**: IBM Dev Day: AI Demystified  
@@ -43,7 +42,6 @@ Multi-agent decision orchestration system powered by IBM watsonx Orchestrate.
 **Event Date**: January 29, 2026  
 **Hackathon Period**: January 30 - February 1, 2026  
 **Submission Deadline**: **February 1, 2026 - 10:00 AM ET** ⏰
-
 
 ### Event Highlights
 - 🎓 **19 Hours** of programming content
@@ -264,6 +262,7 @@ orchestrate chat --agent conductor-agent
 | Member | Role | LinkedIn | GitHub | Others |
 |--------|------|----------|--------|---------|
 | **Bryan Stevens Nuñez Acosta** | Team Lead | [LinkedIn](https://linkedin.com/in/bryan-stevens-acosta) | [GitHub](https://github.com/bryanstevensacosta) | [Portfolio/Website](https://bryanacosta.vercel.app) |
+| **Umer Ahmed** | Team PM | [LinkedIn](https://www.linkedin.com/in/umerahmed245/) | [GitHub](https://github.com/umerahmed245) | [Portfolio/Website](https://flowcv.me/umer-ahmed) |
 
 
 > 💡 **Team Philosophy**: Leveraging collective intelligence through AI orchestration to solve complex business challenges.
