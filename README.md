@@ -91,6 +91,9 @@ lex-conductor/
 | **Hackathon** | Submission requirements and compliance | [`docs/06-hackathon/`](docs/06-hackathon/) |
 | **Infrastructure** | IBM Cloud and Terraform setup | [`docs/07-infrastructure/`](docs/07-infrastructure/) |
 
+
+--- 
+
 ----------|---------|----------|
 | **Hackathon Guide** | Event details, requirements, judging | [`.kiro/steering/hackathon.md`](.kiro/steering/hackathon.md) |
 | **Submission Guide** | Deliverables, templates, process | [`.kiro/steering/submission.md`](.kiro/steering/submission.md) |
