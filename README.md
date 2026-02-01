@@ -92,7 +92,8 @@ lex-conductor/
 
 --- 
 
-----------|---------|----------|
+| Document | Purpose | Location |
+|----------|---------|----------|
 | **Hackathon Guide** | Event details, requirements, judging | [`.kiro/steering/hackathon.md`](.kiro/steering/hackathon.md) |
 | **Submission Guide** | Deliverables, templates, process | [`.kiro/steering/submission.md`](.kiro/steering/submission.md) |
 | **Compliance Rules** | Eligibility, code of conduct | [`.kiro/steering/compliance.md`](.kiro/steering/compliance.md) |
